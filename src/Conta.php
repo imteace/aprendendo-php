@@ -2,16 +2,13 @@
 
 class Conta
 {
-  private $nomeTitular;
-  private $cpfTitular;
+  private $titular;
   private $saldo;
   private static $numeroContas = 0;
 
-  public function __construct(string $nomeTitular, string $cpfTitular)
+  public function __construct(Titular $titular)
   {
-    $this->nomeTitular = $nomeTitular;
-    // $this->validarNomeTitular($nomeTitular);
-    $this->cpfTitular = $cpfTitular;
+    $this->titular = $titular;
     $this->saldo = 0;
 
     self::$numeroContas++;
@@ -27,23 +24,11 @@ class Conta
 
   public function sacar(float $valorSaque): void
   {
-    // if ($valorSaque > $this->saldo) {
-    //   print "Você não tem saldo suficiente para realizar essa ação.\n\n";
-    //   return;
-    // }
-    // $this->saldo -= $valorSaque;
-
     $valorSaque > $this->saldo ? print "\nVocê não tem saldo suficiente para realizar essa ação.\n\n" : $this->saldo -= $valorSaque;
   }
 
   public function depositar(float $valorDeposito): void
   {
-    //   if ($valorDeposito < 0) {
-    //     print "O valor do saque tem que ser positivo.\n\n";
-    //     return;
-    //   }
-    //   $this->saldo += $valorDeposito;
-
     $valorDeposito < 0 ? print "\nO valor do depósito tem que ser positivo.\n\n" : $this->saldo += $valorDeposito;
   }
 
@@ -65,28 +50,13 @@ class Conta
 
   public function exibirNomeTitular(): string
   {
-    return $this->nomeTitular;
+    return $this->titular->exibirNomeTitular();
   }
 
   public function exibirCpfTitular(): string
   {
-    return $this->cpfTitular;
+    return $this->titular->exibirCpfTitular();
   }
-
-  //   public function exibirConta(Conta $conta)
-  //   {
-  //     print "Titular: ${conta['nomeTitular']}\n
-  //           CPF: ${conta['cpfTitular']}\n
-  //           Saldo:R$${conta['saldo']}\n\n";
-  //   }
-
-  // private function validarNomeTitular(string $nomeTitular)
-  // {
-  //   if (strlen($nomeTitular < 5)) {
-  //     print "\nO nome precisa ter no mínimo 5 caracteres.\n\n";
-  //     exit();
-  //   }
-  // }
 
   public static function exibirNumContas(): int
   {
