@@ -2,9 +2,28 @@
 
 class Conta
 {
-  private $cpfTitular;
   private $nomeTitular;
-  private $saldo = 0;
+  private $cpfTitular;
+  private $saldo;
+  private static $numeroContas = 0;
+
+  public function __construct(string $nomeTitular, string $cpfTitular)
+  {
+    $this->nomeTitular = $nomeTitular;
+    // $this->validarNomeTitular($nomeTitular);
+    $this->cpfTitular = $cpfTitular;
+    $this->saldo = 0;
+
+    self::$numeroContas++;
+  }
+
+  public function __destruct()
+  {
+    // if (self::$numeroContas > 2) {
+    //   print "Há mais de uma conta ativa.";
+    // }
+    self::$numeroContas--;
+  }
 
   public function sacar(float $valorSaque): void
   {
@@ -39,8 +58,38 @@ class Conta
     $contaDestino->depositar($valorTransferencia);
   }
 
-  public function recuperarSaldo(): float
+  public function exibirSaldo(): float
   {
     return $this->saldo;
+  }
+
+  public function exibirNomeTitular(): string
+  {
+    return $this->nomeTitular;
+  }
+
+  public function exibirCpfTitular(): string
+  {
+    return $this->cpfTitular;
+  }
+
+  //   public function exibirConta(Conta $conta)
+  //   {
+  //     print "Titular: ${conta['nomeTitular']}\n
+  //           CPF: ${conta['cpfTitular']}\n
+  //           Saldo:R$${conta['saldo']}\n\n";
+  //   }
+
+  // private function validarNomeTitular(string $nomeTitular)
+  // {
+  //   if (strlen($nomeTitular < 5)) {
+  //     print "\nO nome precisa ter no mínimo 5 caracteres.\n\n";
+  //     exit();
+  //   }
+  // }
+
+  public static function exibirNumContas(): int
+  {
+    return Conta::$numeroContas--;
   }
 }
