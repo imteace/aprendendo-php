@@ -1,9 +1,7 @@
 <?php
 
-class Titular
+class Titular extends Pessoa
 {
-  private $cpfTitular;
-  private $nomeTitular;
   private $endereco;
 
   public function __construct(string $nomeTitular, CPF $cpfTitular, Endereco $endereco)
@@ -32,7 +30,7 @@ class Titular
     }
   }
 
-  public function exibirEndereco()
+  public function exibirEndereco(): Endereco
   {
     return $this->endereco;
   }
